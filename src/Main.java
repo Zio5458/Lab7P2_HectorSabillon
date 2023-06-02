@@ -1,8 +1,10 @@
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -63,7 +65,7 @@ public class Main extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Name", "Category", "Price", "Isle", "BIN"
+                "ID", "Name", "Category", "Price", "Aisle", "BIN"
             }
         ));
         jScrollPane1.setViewportView(tabla_principal);
@@ -124,9 +126,17 @@ public class Main extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Name", "Category", "Price", "Isle", "BIN"
+                "ID", "Name", "Category", "Price", "Aisle", "BIN"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tabla_crear);
 
         botonCrear.setText("Crear Archivo");
@@ -204,10 +214,36 @@ public class Main extends javax.swing.JFrame {
     private void botonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCrearMouseClicked
         DefaultTableModel modelo = (DefaultTableModel) tabla_crear.getModel();
         Objetos objeto = new Objetos();
-        for(int i = 0; i < modelo.getRowCount(); i++){
+        for (int i = 0; i < modelo.getRowCount(); i++) {
             objeto.setId((int) modelo.getValueAt(i, 0));
-            objeto.setName((String)modelo.getValueAt(i, 1));
-            
+            objeto.setName((String) modelo.getValueAt(i, 1));
+            objeto.setCategory((int) modelo.getValueAt(i, 2));
+            objeto.setPrice((double) modelo.getValueAt(i, 3));
+            objeto.setIsle((String) modelo.getValueAt(i, 4));
+            objeto.setBin((String) modelo.getValueAt(i, 5));
+        }
+        File archivo = null;
+        FileWriter canal = null;
+        BufferedWriter buffer = null;
+        try {
+            archivo = new File("./nuevosdatos.txt");
+            canal = new FileWriter(archivo, true);
+            buffer = new BufferedWriter(canal);
+            buffer.write(objeto.toString());
+            buffer.newLine();
+            buffer.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            buffer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            canal.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_botonCrearMouseClicked
 

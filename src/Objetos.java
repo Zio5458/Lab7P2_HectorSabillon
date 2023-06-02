@@ -8,7 +8,7 @@ public class Objetos {
     private String name;
     private int category;
     private double price;
-    private String isle;
+    private String aisle;
     private String bin;
 
     public Objetos(){        
@@ -19,7 +19,7 @@ public class Objetos {
         this.name = name;
         this.category = setCategory(category);
         this.price = price;
-        this.isle = setIsle(isle);
+        this.aisle = setIsle(isle);
         this.bin = setBin(bin);
     }
 
@@ -61,7 +61,7 @@ public class Objetos {
     }
 
     public String getIsle() {
-        return isle;
+        return aisle;
     }
 
     public String setIsle(String isle) {
@@ -96,13 +96,14 @@ public class Objetos {
         if (cont_numeros == 3){
             return true;
         } else {
+            JOptionPane.showMessageDialog(null, "El dato ingresado no es un nummero");
             return false;
         }
     }
     
     @Override
     public String toString() {
-        return "Objetos{" + "id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + ", isle=" + isle + ", bin=" + bin + '}';
+        return id + "," + name + "," + category + "," + price + "," + aisle + "," + bin;
     }
 
     
