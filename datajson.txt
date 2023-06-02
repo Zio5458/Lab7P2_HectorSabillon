@@ -1,12 +1,12 @@
 [
-id,name,category,price,aisle,bin,
-133,Red Pen,0,0.99,121,044,
-4478,Razor,4,2.59,664,000,
-324,Detergente,5,39.50,432,005,
-4563,Tomate,8,12.95,120,021,
-12,Leche Condensada,9,45.00,110,923,
-707,7Up,5,35.55,95,908,
-236,Vino,5,129.99,35,223,
-750,Cuaderno Escolar,6,23.45,99,25,
-34,Candelas,7,99.99,60,045,
+   {"id":id, "name":name, "category":category, "price":price, "aisle":aisle, "bin":bin},
+   {"id":133, "name":Red Pen, "category":0, "price":0.99, "aisle":121, "bin":044},
+   {"id":4478, "name":Razor, "category":4, "price":2.59, "aisle":664, "bin":000},
+   {"id":324, "name":Detergente, "category":5, "price":39.50, "aisle":432, "bin":005},
+   {"id":4563, "name":Tomate, "category":8, "price":12.95, "aisle":120, "bin":021},
+   {"id":12, "name":Leche Condensada, "category":9, "price":45.00, "aisle":110, "bin":923},
+   {"id":707, "name":7Up, "category":5, "price":35.55, "aisle":95, "bin":908},
+   {"id":236, "name":Vino, "category":5, "price":129.99, "aisle":35, "bin":223},
+   {"id":750, "name":Cuaderno Escolar, "category":6, "price":23.45, "aisle":99, "bin":25},
+   {"id":34, "name":Candelas, "category":7, "price":99.99, "aisle":60, "bin":045}
 ]

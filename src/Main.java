@@ -349,9 +349,15 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
-    public String toJSON() throws IOException{
+    public String toJSON() throws IOException{        
         File archivo = new File("/C:/Archivos/data.txt.txt/");
+        Scanner sc = new Scanner(archivo);
         String temp = "[\n";
+        int cont = 0;
+        while(sc.hasNextLine()){
+            cont++;
+            sc.nextLine();
+        }
         try {
             FileReader a = new FileReader(archivo);
             BufferedReader b = new BufferedReader(a);
@@ -361,7 +367,7 @@ public class Main extends javax.swing.JFrame {
                 for(int i = 0; i < t.length; i++){
                     switch(i){
                         case 0:
-                            temp += "\"{id\":" + t[i] + ", ";
+                            temp += "   {\"id\":" + t[i] + ", ";
                             break;
                         case 1:
                             temp += "\"name\":" + t[i] + ", ";
@@ -376,9 +382,13 @@ public class Main extends javax.swing.JFrame {
                             temp += "\"aisle\":" + t[i] + ", ";
                             break;
                         case 5:
+                            temp += "\"bin\":" + t[i] + "}";
+                            if (cont > 1){
+                                temp += ",";
+                                cont--;
+                            }
                             break;
                     }
-                    //temp += t[i] + ",";                    
                 }
                 temp += "\n";
             }
