@@ -1,17 +1,27 @@
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author hdann
  */
 public class Main extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Main
-     */
+    static String t[];
+
     public Main() {
         initComponents();
     }
@@ -46,10 +56,7 @@ public class Main extends javax.swing.JFrame {
 
         tabla_principal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Name", "Category", "Price", "Isle", "BIN"
@@ -60,6 +67,11 @@ public class Main extends javax.swing.JFrame {
         jButton1.setText("Exportar a JSON");
 
         jButton2.setText("Actualizar Tabla");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -132,6 +144,14 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        try {
+            llenarTabla();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -165,6 +185,26 @@ public class Main extends javax.swing.JFrame {
                 new Main().setVisible(true);
             }
         });
+    }
+
+    public void llenarTabla() throws FileNotFoundException, IOException {
+        int fil = 0, cont = 0;
+        DefaultTableModel modelo = (DefaultTableModel) tabla_principal.getModel();
+        File archivo = new File("/C:/Archivos/data.txt.txt/");
+        Scanner sc = new Scanner(archivo);
+        try {
+            FileReader a = new FileReader(archivo);
+            BufferedReader b = new BufferedReader(a);
+            String text = "";
+            while ((text = b.readLine()) != null) {
+                t = text.split(",");
+                modelo.addRow(t);
+            }
+            tabla_principal.setModel(modelo);
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
