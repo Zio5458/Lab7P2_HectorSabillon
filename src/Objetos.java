@@ -8,10 +8,13 @@ public class Objetos {
     private String name;
     private int category;
     private double price;
-    private int isle;
-    private int bin;
+    private String isle;
+    private String bin;
 
-    public Objetos(int id, String name, int category, double price, int isle, int bin) {
+    public Objetos(){        
+    }
+    
+    public Objetos(int id, String name, int category, double price, String isle, String bin) {
         this.id = id;
         this.name = name;
         this.category = setCategory(category);
@@ -57,30 +60,50 @@ public class Objetos {
         this.price = price;
     }
 
-    public int getIsle() {
+    public String getIsle() {
         return isle;
     }
 
-    public int setIsle(int isle) {
-        if (Integer.toString(isle).length() != 3){
+    public String setIsle(String isle) {
+        if (isle.length() != 3 && esNumero(isle)){
             JOptionPane.showMessageDialog(null, "Numero ingresado para el isle no es valido");
-            return 0;
+            return "";
         } else {
             return isle;
         }
     }
 
-    public int getBin() {
+    public String getBin() {
         return bin;
     }
 
-    public int setBin(int bin) {
-        if (Integer.toString(bin).length() != 3){
+    public String setBin(String bin) {
+        if (bin.length() != 3 && esNumero(bin)){
             JOptionPane.showMessageDialog(null, "Numero ingresado para el bin no es valido");
-            return 0;
+            return "";
         } else {
             return bin;
         }
     }
 
+    public boolean esNumero(String num){
+        int cont_numeros = 0;
+        for (int i = 0; i < num.length(); i++){
+            if ((int)num.charAt(i) >=48 && (int)num.charAt(i) <=57){
+                cont_numeros++;
+            }
+        }
+        if (cont_numeros == 3){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public String toString() {
+        return "Objetos{" + "id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + ", isle=" + isle + ", bin=" + bin + '}';
+    }
+
+    
 }

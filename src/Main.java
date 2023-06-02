@@ -44,6 +44,10 @@ public class Main extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabla_crear = new javax.swing.JTable();
+        botonCrear = new javax.swing.JButton();
+        botonCrearFila = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -115,15 +119,54 @@ public class Main extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
         jPanel4.setForeground(new java.awt.Color(0, 0, 0));
 
+        tabla_crear.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Category", "Price", "Isle", "BIN"
+            }
+        ));
+        jScrollPane2.setViewportView(tabla_crear);
+
+        botonCrear.setText("Crear Archivo");
+        botonCrear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonCrearMouseClicked(evt);
+            }
+        });
+
+        botonCrearFila.setText("Crear Fila");
+        botonCrearFila.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonCrearFilaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(botonCrearFila, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 569, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botonCrear, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                    .addComponent(botonCrearFila, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -151,6 +194,22 @@ public class Main extends javax.swing.JFrame {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void botonCrearFilaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCrearFilaMouseClicked
+        DefaultTableModel modelo = (DefaultTableModel) tabla_crear.getModel();
+        String[] emptyRow = new String[6];
+        modelo.addRow(emptyRow);
+    }//GEN-LAST:event_botonCrearFilaMouseClicked
+
+    private void botonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCrearMouseClicked
+        DefaultTableModel modelo = (DefaultTableModel) tabla_crear.getModel();
+        Objetos objeto = new Objetos();
+        for(int i = 0; i < modelo.getRowCount(); i++){
+            objeto.setId((int) modelo.getValueAt(i, 0));
+            objeto.setName((String)modelo.getValueAt(i, 1));
+            
+        }
+    }//GEN-LAST:event_botonCrearMouseClicked
 
     /**
      * @param args the command line arguments
@@ -188,14 +247,12 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void llenarTabla() throws FileNotFoundException, IOException {
-        int fil = 0, cont = 0;
         DefaultTableModel modelo = (DefaultTableModel) tabla_principal.getModel();
         File archivo = new File("/C:/Archivos/data.txt.txt/");
-        Scanner sc = new Scanner(archivo);
         try {
             FileReader a = new FileReader(archivo);
             BufferedReader b = new BufferedReader(a);
-            String text = "";
+            String text;
             while ((text = b.readLine()) != null) {
                 t = text.split(",");
                 modelo.addRow(t);
@@ -208,6 +265,8 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonCrear;
+    private javax.swing.JButton botonCrearFila;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
@@ -215,7 +274,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable tabla_crear;
     private javax.swing.JTable tabla_principal;
     // End of variables declaration//GEN-END:variables
 }
