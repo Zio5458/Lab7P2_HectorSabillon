@@ -258,7 +258,32 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCrearMouseClicked
 
     private void botonJSONMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonJSONMouseClicked
-        
+        File archivo = null;
+     FileWriter canal = null;
+     BufferedWriter buffer = null;
+     
+        try {
+            archivo = new File("./datajson.txt");
+            canal = new FileWriter(archivo, false);
+            buffer = new BufferedWriter(canal);
+            buffer.write(toJSON());
+            buffer.newLine();
+            buffer.flush();
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            buffer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            canal.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonJSONMouseClicked
 
     /**
@@ -324,6 +349,46 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
+    public String toJSON() throws IOException{
+        File archivo = new File("/C:/Archivos/data.txt.txt/");
+        String temp = "[\n";
+        try {
+            FileReader a = new FileReader(archivo);
+            BufferedReader b = new BufferedReader(a);
+            String text;
+            while ((text = b.readLine()) != null) {
+                t = text.split(",");   
+                for(int i = 0; i < t.length; i++){
+                    switch(i){
+                        case 0:
+                            temp += "\"{id\":" + t[i] + ", ";
+                            break;
+                        case 1:
+                            temp += "\"name\":" + t[i] + ", ";
+                            break;
+                        case 2:
+                            temp += "\"category\":" + t[i] + ", ";
+                            break;
+                        case 3:
+                            temp += "\"price\":" + t[i] + ", ";
+                            break;
+                        case 4:
+                            temp += "\"aisle\":" + t[i] + ", ";
+                            break;
+                        case 5:
+                            break;
+                    }
+                    //temp += t[i] + ",";                    
+                }
+                temp += "\n";
+            }
+            temp += "]";
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return temp;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCrear;
     private javax.swing.JButton botonCrearFila;
