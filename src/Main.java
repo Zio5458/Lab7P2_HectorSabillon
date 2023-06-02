@@ -219,15 +219,15 @@ public class Main extends javax.swing.JFrame {
             objeto.setName((String) modelo.getValueAt(i, 1));
             objeto.setCategory((int) modelo.getValueAt(i, 2));
             objeto.setPrice((double) modelo.getValueAt(i, 3));
-            objeto.setIsle((String) modelo.getValueAt(i, 4));
-            objeto.setBin((String) modelo.getValueAt(i, 5));
+            objeto.setAisle(Integer.parseInt((String)modelo.getValueAt(i, 4)));
+            objeto.setBin(Integer.parseInt((String)modelo.getValueAt(i, 5)));
         }
         File archivo = null;
         FileWriter canal = null;
         BufferedWriter buffer = null;
         try {
             archivo = new File("./nuevosdatos.txt");
-            canal = new FileWriter(archivo, true);
+            canal = new FileWriter(archivo, false);
             buffer = new BufferedWriter(canal);
             buffer.write(objeto.toString());
             buffer.newLine();
