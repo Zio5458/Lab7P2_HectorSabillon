@@ -8,19 +8,19 @@ public class Objetos {
     private String name;
     private int category;
     private double price;
-    private int aisle;
-    private int bin;
+    private String aisle;
+    private String bin;
 
     public Objetos(){        
     }
     
-    public Objetos(int id, String name, int category, double price, int isle, int bin) {
+    public Objetos(int id, String name, int category, double price, int aisle, int bin) {
         this.id = id;
         this.name = name;
         this.category = setCategory(category);
         this.price = price;
-        this.aisle = isle;
-        this.bin = bin;
+        this.aisle = setAisle(aisle);
+        this.bin = setBin(bin);
     }
 
     public int getId() {
@@ -59,29 +59,29 @@ public class Objetos {
         this.price = price;
     }
 
-    public int getAisle() {
+    public String getAisle() {
         return aisle;
     }
 
-    public int setAisle(int aisle) {
+    public String setAisle(int aisle) {
         if((Integer.toString(aisle)).length() == 3){
-            return aisle;
+            return Integer.toString(aisle);
         } else {
             JOptionPane.showMessageDialog(null, "Dato ingresado no valido");
-            return -1;
+            return "";
         }
     }
 
-    public int getBin() {
+    public String getBin() {
         return bin;
     }
 
-    public int setBin(int bin) {
+    public String setBin(int bin) {
         if((Integer.toString(bin)).length() == 3){
-            return bin;
+            return Integer.toString(bin);
         } else {
             JOptionPane.showMessageDialog(null, "Dato ingresado no valido");
-            return -1;
+            return "";
         }
     }
 

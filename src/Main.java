@@ -130,7 +130,7 @@ public class Main extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -215,12 +215,15 @@ public class Main extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tabla_crear.getModel();
         Objetos objeto = new Objetos();
         for (int i = 0; i < modelo.getRowCount(); i++) {
-            objeto.setId((int) modelo.getValueAt(i, 0));
+            objeto.setId((Integer.parseInt((String) modelo.getValueAt(i, 0))));
             objeto.setName((String) modelo.getValueAt(i, 1));
-            objeto.setCategory((int) modelo.getValueAt(i, 2));
-            objeto.setPrice((double) modelo.getValueAt(i, 3));
-            objeto.setAisle(Integer.parseInt((String)modelo.getValueAt(i, 4)));
-            objeto.setBin(Integer.parseInt((String)modelo.getValueAt(i, 5)));
+            objeto.setCategory((Integer.parseInt((String) modelo.getValueAt(i, 2))));
+            objeto.setPrice(Double.parseDouble((String) modelo.getValueAt(i, 3)));
+            objeto.setAisle(Integer.parseInt((String) modelo.getValueAt(i, 4)));
+            objeto.setBin(Integer.parseInt((String) modelo.getValueAt(i, 5)));
+            System.out.println("->" + modelo.getValueAt(i, 2));
+            System.out.println("->" + modelo.getValueAt(i, 4));
+            System.out.println("->" + modelo.getValueAt(i, 5));
         }
         File archivo = null;
         FileWriter canal = null;
