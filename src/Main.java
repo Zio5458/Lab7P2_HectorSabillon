@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +43,7 @@ public class Main extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_principal = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        botonJSON = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -70,7 +71,12 @@ public class Main extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabla_principal);
 
-        jButton1.setText("Exportar a JSON");
+        botonJSON.setText("Exportar a JSON");
+        botonJSON.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonJSONMouseClicked(evt);
+            }
+        });
 
         jButton2.setText("Actualizar Tabla");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -87,7 +93,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonJSON, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -100,7 +106,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                    .addComponent(botonJSON, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
@@ -212,27 +218,28 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCrearFilaMouseClicked
 
     private void botonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCrearMouseClicked
-        DefaultTableModel modelo = (DefaultTableModel) tabla_crear.getModel();
-        Objetos objeto = new Objetos();
-        for (int i = 0; i < modelo.getRowCount(); i++) {
-            objeto.setId((Integer.parseInt((String) modelo.getValueAt(i, 0))));
-            objeto.setName((String) modelo.getValueAt(i, 1));
-            objeto.setCategory((Integer.parseInt((String) modelo.getValueAt(i, 2))));
-            objeto.setPrice(Double.parseDouble((String) modelo.getValueAt(i, 3)));
-            objeto.setAisle(Integer.parseInt((String) modelo.getValueAt(i, 4)));
-            objeto.setBin(Integer.parseInt((String) modelo.getValueAt(i, 5)));
-            System.out.println("->" + modelo.getValueAt(i, 2));
-            System.out.println("->" + modelo.getValueAt(i, 4));
-            System.out.println("->" + modelo.getValueAt(i, 5));
-        }
+        ArrayList<Objetos> lista = new ArrayList();
         File archivo = null;
         FileWriter canal = null;
         BufferedWriter buffer = null;
         try {
+            DefaultTableModel modelo = (DefaultTableModel) tabla_crear.getModel();
+
+            for (int i = 0; i < modelo.getRowCount(); i++) {
+                Objetos objeto = new Objetos();
+                objeto.setId((Integer.parseInt((String) modelo.getValueAt(i, 0))));
+                objeto.setName((String) modelo.getValueAt(i, 1));
+                String cat = (String) modelo.getValueAt(i, 2);
+                objeto.setCategory(Character.getNumericValue(cat.charAt(0)));
+                objeto.setPrice(Double.parseDouble((String) modelo.getValueAt(i, 3)));
+                objeto.setAisle(Integer.parseInt((String) modelo.getValueAt(i, 4)));
+                objeto.setBin(Integer.parseInt((String) modelo.getValueAt(i, 5)));
+                lista.add(objeto);
+            }
             archivo = new File("./nuevosdatos.txt");
             canal = new FileWriter(archivo, false);
             buffer = new BufferedWriter(canal);
-            buffer.write(objeto.toString());
+            buffer.write(writeFromArrayList(lista));
             buffer.newLine();
             buffer.flush();
         } catch (Exception e) {
@@ -249,6 +256,10 @@ public class Main extends javax.swing.JFrame {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_botonCrearMouseClicked
+
+    private void botonJSONMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonJSONMouseClicked
+        
+    }//GEN-LAST:event_botonJSONMouseClicked
 
     /**
      * @param args the command line arguments
@@ -285,6 +296,16 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+    public String writeFromArrayList(ArrayList<Objetos> lista) {
+        String t = "";
+        for (int i = 0; i < lista.size(); i++) {
+            t += lista.get(i).toString();
+            System.out.println(t);
+            t += "\n";
+        }
+        return t;
+    }
+
     public void llenarTabla() throws FileNotFoundException, IOException {
         DefaultTableModel modelo = (DefaultTableModel) tabla_principal.getModel();
         File archivo = new File("/C:/Archivos/data.txt.txt/");
@@ -306,7 +327,7 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCrear;
     private javax.swing.JButton botonCrearFila;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton botonJSON;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

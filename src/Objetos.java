@@ -17,10 +17,10 @@ public class Objetos {
     public Objetos(int id, String name, int category, double price, int aisle, int bin) {
         this.id = id;
         this.name = name;
-        this.category = setCategory(category);
+        this.category = category;
         this.price = price;
-        this.aisle = setAisle(aisle);
-        this.bin = setBin(bin);
+        this.aisle = Integer.toString(aisle);
+        this.bin = Integer.toString(bin);
     }
 
     public int getId() {
@@ -43,11 +43,12 @@ public class Objetos {
         return category;
     }
 
-    public int setCategory(int category) {
-        if (category >= 0 && category <= 9){
-            return category;
+    public void setCategory(int category) {
+        if (category >= 0 || category <= 9){
+            this.category = category;
         } else {
-            return -1;
+            System.out.println("Ingrese una categoria entre 0 y 9");
+            return;
         }
     }
 
@@ -63,12 +64,12 @@ public class Objetos {
         return aisle;
     }
 
-    public String setAisle(int aisle) {
+    public void setAisle(int aisle) {
         if((Integer.toString(aisle)).length() == 3){
-            return Integer.toString(aisle);
+            this.aisle = Integer.toString(aisle);
         } else {
             JOptionPane.showMessageDialog(null, "Dato ingresado no valido");
-            return "";
+            this.aisle = "";
         }
     }
 
@@ -76,12 +77,12 @@ public class Objetos {
         return bin;
     }
 
-    public String setBin(int bin) {
+    public void setBin(int bin) {
         if((Integer.toString(bin)).length() == 3){
-            return Integer.toString(bin);
+            this.bin =  Integer.toString(bin);
         } else {
             JOptionPane.showMessageDialog(null, "Dato ingresado no valido");
-            return "";
+            this.bin = "";
         }
     }
 
